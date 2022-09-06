@@ -11,10 +11,11 @@ void DIO_init(ST_DIO_config_t* dio_config_ptr)
 	switch(dio_config_ptr->pin_config)
 	{
 		case OUTPUT:
+		
 		switch(dio_config_ptr->port)
 		{
 			case PORT_A:
-			SET_BIT(DDRA, dio_config_ptr->pin);
+			SET_BIT(DDRA, dio_config_ptr->pin); 
 			break;
 			
 			case PORT_B:
@@ -86,7 +87,7 @@ void DIO_init(ST_DIO_config_t* dio_config_ptr)
 		
 	}
 
-}
+}//DIO_init
 void DIO_write(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t state)
 {
 	switch(state)
@@ -135,6 +136,50 @@ void DIO_write(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t state)
 	}
 	
 	
-}
+}//DIO_write
+void DIO_read(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t* pinStatePtr)
+{
+	
+	switch(port)
+	{
+		case PORT_A:
+		*pinStatePtr = GET_BIT(PORTA, pin);
+		break;
+		
+		case PORT_B:
+		*pinStatePtr = GET_BIT(PORTB, pin);
+		break;
+		
+		case PORT_C:
+		*pinStatePtr = GET_BIT(PORTC, pin);
+		break;
+		
+		case PORT_D:
+		*pinStatePtr = GET_BIT(PORTD, pin);
+		break;
+	}
+	
 
+}//DIO_read
+void DIO_toggle(EN_DIO_port_t port, EN_DIO_pin_t pin)
+{
+		switch(port)
+		{
+			case PORT_A:
+			TOG_BIT(PORTA, pin);
+			break;
+			
+			case PORT_B:
+			TOG_BIT(PORTB, pin);
+			break;
+			
+			case PORT_C:
+			TOG_BIT(PORTC, pin);
+			break;
+			
+			case PORT_D:
+			TOG_BIT(PORTD, pin);
+			break;
+		}
+}//DIO_toggle
 
