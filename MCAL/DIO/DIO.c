@@ -143,19 +143,19 @@ void DIO_read(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t* pinStatePtr)
 	switch(port)
 	{
 		case PORT_A:
-		*pinStatePtr = GET_BIT(PORTA, pin);
+		*pinStatePtr = GET_BIT(PINA, pin);
 		break;
 		
 		case PORT_B:
-		*pinStatePtr = GET_BIT(PORTB, pin);
+		*pinStatePtr = GET_BIT(PINB, pin);
 		break;
 		
 		case PORT_C:
-		*pinStatePtr = GET_BIT(PORTC, pin);
+		*pinStatePtr = GET_BIT(PINC, pin);
 		break;
 		
 		case PORT_D:
-		*pinStatePtr = GET_BIT(PORTD, pin);
+		*pinStatePtr = GET_BIT(PIND, pin);
 		break;
 	}
 	
