@@ -62,6 +62,7 @@ ISC11 ISC10 Description
 	falling=0
 	rising=1
 */
+
 #define MCUCSR (*(volatile unsigned char*)0x54)
 #define ISC2 6
 
@@ -82,6 +83,27 @@ ISC11 ISC10 Description
 #define INTF2 5
 
 
+
+/************************************************************************/
+/*			             EXTERNAL INTERRUPTS Vectors                    */
+/************************************************************************/
+#  define __INTR_ATTRS used, externally_visible
+#  define ISR(vector, ...)            \
+void vector (void) __attribute__ ((signal,__INTR_ATTRS)) __VA_ARGS__; \
+void vector (void)
+
+/* External Interrupt Request 0 */
+#define INT0_vect			__vector_1
+/* External Interrupt Request 1 */
+#define INT1_vect			__vector_2
+/* External Interrupt Request 2 */
+#define INT2_vect			__vector_3
+
+/************************************************************************/
+/*                         GLOBAL INTERRUPT ENABLE/DISABLE              */
+/************************************************************************/
+# define sei()  __asm__ __volatile__ ("sei" ::)
+# define cli()  __asm__ __volatile__ ("cli" ::)
 
 
 #endif /* REGISTERS_H_ */
