@@ -104,6 +104,101 @@ void vector (void)
 /************************************************************************/
 # define sei()  __asm__ __volatile__ ("sei" ::)
 # define cli()  __asm__ __volatile__ ("cli" ::)
+/************************************************************************************************/
+/* Timer 0 */
+#define TCNT0   (*(volatile unsigned char*)0x52)
+#define TCCR0   (*(volatile unsigned char*)0x53)
+/* TCCR0 */
+#define FOC0    7
+#define WGM00   6
+#define COM01   5
+#define COM00   4
+#define WGM01   3
+#define CS02    2
+#define CS01    1
+#define CS00    0
+
+#define TWCR    (*(volatile unsigned char*)0x56)
+#define SPMCR   (*(volatile unsigned char*)0x57)
+#define TIFR    (*(volatile unsigned char*)0x58)
+#define TIMSK   (*(volatile unsigned char*)0x59)
+/* TIMSK */
+#define OCIE2   7
+#define TOIE2   6
+#define TICIE1  5
+#define OCIE1A  4
+#define OCIE1B  3
+#define TOIE1   2
+#define OCIE0   1
+#define TOIE0   0
+
+#define OCR0    (*(volatile unsigned char*)0x5C)
+/****************************************************************************************************/
+
+/*TIMER 1*/
+
+
+#define ICR1         (*(volatile unsigned short*)0x46)
+#define ICR1L     (*(volatile unsigned char*)0x46)
+#define ICR1H     (*(volatile unsigned char*)0x47)
+#define OCR1B     (*(volatile unsigned short*)0x48)
+#define OCR1BL    (*(volatile unsigned char*)0x48)
+#define OCR1BH       (*(volatile unsigned char*)0x49)
+#define OCR1A     (*(volatile unsigned short*)0x4A)
+#define OCR1AL    (*(volatile unsigned char*)0x4A)
+#define OCR1AH      (*(volatile unsigned char*)0x4B)
+#define TCNT1       (*(volatile unsigned short*)0x4C)
+#define TCNT1L    (*(volatile unsigned char*)0x4C)
+#define TCNT1H    (*(volatile unsigned char*)0x4D)
+#define TCCR1B       (*(volatile unsigned char*)0x4E)
+#define TCCR1A        (*(volatile unsigned char*)0x4F)
+
+#define SFIOR       (*(volatile unsigned char*)0x50)
+
+#define OSCCAL       (*(volatile unsigned char*)0x51)
+/************************************************************************/
+/************************************************************************/
+/*                                TIMER 0                               */
+/************************************************************************/
+/* Timer/Counter0 Compare Match */
+#define TIMER0_OC_vect		__vector_10
+/* Timer/Counter0 Overflow */
+#define TIMER0_OVF_vect		__vector_11
+
+/* Timer 0 */
+#define TCNT0   (*(volatile unsigned char*)0x52) // timer counter register
+
+#define TCCR0   (*(volatile unsigned char*)0x53) // Timer counter control register
+/* TCCR0 PINS */
+#define FOC0    7
+#define WGM00   6
+#define COM01   5
+#define COM00   4
+#define WGM01   3
+#define CS02    2
+#define CS01    1
+#define CS00    0
+
+#define TWCR    (*(volatile unsigned char*)0x56)
+#define SPMCR   (*(volatile unsigned char*)0x57)
+
+#define TIFR    (*(volatile unsigned char*)0x58) // timer interrupt flag register
+#define TOV0 0
+#define OCF0 1
+
+
+#define TIMSK   (*(volatile unsigned char*)0x59) //Timer interrupt mask register
+/* TIMSK  PINS*/
+#define OCIE2   7
+#define TOIE2   6
+#define TICIE1  5
+#define OCIE1A  4
+#define OCIE1B  3
+#define TOIE1   2
+#define OCIE0   1
+#define TOIE0   0
+
+#define OCR0    (*(volatile unsigned char*)0x5C)
 
 
 #endif /* REGISTERS_H_ */
