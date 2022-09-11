@@ -17,7 +17,7 @@ static void (*Timer0_OVF_Fptr) (void) = NULLPTR;
 
 
 
-void TIMER0_setInitialTicks(u8 ticks)
+void TIMER0_setTicks(u8 ticks)
 {
 	TCNT0 = ticks;
 }
