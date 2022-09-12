@@ -13,130 +13,161 @@ static void(*EXT_INT2_Ptr)(void) = NULLPTR;
 
 
 
-void EXT_InterruptEnable(EXT_EN_InterruptSource_t interrupt_pin)
+EN_EXT_error_t EXT_InterruptEnable(EN_EXT_InterruptSource_t interrupt_pin)
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
-		SET_BIT(GICR, INT0);
-		break;
+			SET_BIT(GICR, INT0);
+			break;
 		
 		case EXT_INT1:
-		SET_BIT(GICR, INT1);
-		break;
+			SET_BIT(GICR, INT1);
+			break;
 		
 		case EXT_INT2:
-		SET_BIT(GICR, INT2);
-		break;
+			SET_BIT(GICR, INT2);
+			break;
+		
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			break;
 	}
+	return extInterruptErr;
 }
-void EXT_InterruptSenseControl(EXT_EN_InterruptSource_t interrupt_pin, EXT_EN_SenseControl_t sense)
+EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t interrupt_pin, EN_EXT_SenseControl_t sense)
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
-		switch(sense)
-		{
-			case RISING_EDGE:
-			SET_BIT(MCUCR, ISC00);
-			SET_BIT(MCUCR, ISC01);
+			switch(sense)
+			{
+				case RISING_EDGE:
+					SET_BIT(MCUCR, ISC00);
+					SET_BIT(MCUCR, ISC01);
+					break;
+				
+				case FALLING_EDGE:
+					CLR_BIT(MCUCR, ISC00);
+					SET_BIT(MCUCR, ISC01);
+					break;
+				
+				case ANY_LOGIC_CHANGE:
+					SET_BIT(MCUCR, ISC00);
+					CLR_BIT(MCUCR, ISC01);
+					break;
+				
+				case LOW_LEVEL:
+					CLR_BIT(MCUCR, ISC00);
+					CLR_BIT(MCUCR, ISC01);
+				default:
+					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
+					break;
+			}
 			break;
 			
-			case FALLING_EDGE:
-			CLR_BIT(MCUCR, ISC00);
-			SET_BIT(MCUCR, ISC01);
-			break;
-			
-			case ANY_LOGIC_CHANGE:
-			SET_BIT(MCUCR, ISC00);
-			CLR_BIT(MCUCR, ISC01);
-			break;
-			
-			case LOW_LEVEL:
-			CLR_BIT(MCUCR, ISC00);
-			CLR_BIT(MCUCR, ISC01);
-		}
-		break;
-		
 		case EXT_INT1:
-		switch(sense)
-		{
-			case RISING_EDGE:
-			SET_BIT(MCUCR, ISC10);
-			SET_BIT(MCUCR, ISC11);
+			switch(sense)
+			{
+				case RISING_EDGE:
+				SET_BIT(MCUCR, ISC10);
+				SET_BIT(MCUCR, ISC11);
+				break;
+				
+				case FALLING_EDGE:
+				CLR_BIT(MCUCR, ISC10);
+				SET_BIT(MCUCR, ISC11);
+				break;
+				
+				case ANY_LOGIC_CHANGE:
+				SET_BIT(MCUCR, ISC10);
+				CLR_BIT(MCUCR, ISC11);
+				break;
+				
+				case LOW_LEVEL:
+				CLR_BIT(MCUCR, ISC10);
+				CLR_BIT(MCUCR, ISC11);
+				break;
+					CLR_BIT(MCUCR, ISC01);
+				default:
+					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
+					break;
+				
+			}
 			break;
-			
-			case FALLING_EDGE:
-			CLR_BIT(MCUCR, ISC10);
-			SET_BIT(MCUCR, ISC11);
-			break;
-			
-			case ANY_LOGIC_CHANGE:
-			SET_BIT(MCUCR, ISC10);
-			CLR_BIT(MCUCR, ISC11);
-			break;
-			
-			case LOW_LEVEL:
-			CLR_BIT(MCUCR, ISC10);
-			CLR_BIT(MCUCR, ISC11);
-			break;
-			
-		}
-		break;
 		
 		case EXT_INT2:
-		switch(sense)
-		{
-			case RISING_EDGE:
-			SET_BIT(MCUCSR, ISC2);
+			switch(sense)
+			{
+				case RISING_EDGE:
+					SET_BIT(MCUCSR, ISC2);
+					break;
+				
+				case FALLING_EDGE:
+					CLR_BIT(MCUCSR, ISC2);
+					break;
+				
+					CLR_BIT(MCUCR, ISC01);
+				default:
+					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
+					break;
+			}
 			break;
-			
-			case FALLING_EDGE:
-			CLR_BIT(MCUCSR, ISC2);
-			break;
-			
-			default:
-			CLR_BIT(MCUCSR, ISC2);
-		}
-		break;
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
 	}
+	return extInterruptErr;
 }
-void EXT_InterruptDisable(EXT_EN_InterruptSource_t interrupt_pin)
+EN_EXT_error_t EXT_InterruptDisable(EN_EXT_InterruptSource_t interrupt_pin)
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
+
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
-		CLR_BIT(GICR, INT0);
-		break;
+			CLR_BIT(GICR, INT0);
+			break;
 		
 		case EXT_INT1:
-		CLR_BIT(GICR, INT1);
-		break;
+			CLR_BIT(GICR, INT1);
+			break;
 		
 		case EXT_INT2:
-		CLR_BIT(GICR, INT2);
-		break;
+			CLR_BIT(GICR, INT2);
+			break;
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			
 	}
+	return extInterruptErr;
 }
-void EXT_Interrupt_ReadFlag(EXT_EN_InterruptSource_t interrupt_pin, EXT_EN_flag_t* flagPtr)
+EN_EXT_error_t EXT_Interrupt_ReadFlag(EN_EXT_InterruptSource_t interrupt_pin, EN_EXT_flag_t* flagPtr)
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
+
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
-		*flagPtr = GET_BIT(GIFR, INTF0);
-		break;
+			*flagPtr = GET_BIT(GIFR, INTF0);
+			break;
 		
 		case EXT_INT1:
-		*flagPtr = GET_BIT(GIFR, INTF1);
-		break;
-		
+			*flagPtr = GET_BIT(GIFR, INTF1);
+			break;
+
 		case EXT_INT2:
-		*flagPtr = GET_BIT(GIFR, INTF2);
-		break;
+			*flagPtr = GET_BIT(GIFR, INTF2);
+			break;
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
 	}
+	return extInterruptErr;
 }
-void EXT_Interrupt_WriteFlag(EXT_EN_InterruptSource_t interrupt_pin)
+EN_EXT_error_t EXT_Interrupt_WriteFlag(EN_EXT_InterruptSource_t interrupt_pin)
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
@@ -150,25 +181,37 @@ void EXT_Interrupt_WriteFlag(EXT_EN_InterruptSource_t interrupt_pin)
 		case EXT_INT2:
 		SET_BIT(GIFR, INTF2);
 		break;
+		
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			break;
 	}
+	return extInterruptErr;
 }
 
-void EXT_InterruptSetCallback(EXT_EN_InterruptSource_t interrupt_pin, void(*pLocal)(void))
+EN_EXT_error_t EXT_InterruptSetCallback(EN_EXT_InterruptSource_t interrupt_pin, void(*pLocal)(void))
 {
+	EN_EXT_error_t extInterruptErr = EXT_INT_OK;
+
 	switch(interrupt_pin)
 	{
 		case EXT_INT0:
-		EXT_INT0_Ptr = pLocal;
-		break;
+			EXT_INT0_Ptr = pLocal;
+			break;
 		
 		case EXT_INT1:
-		EXT_INT1_Ptr = pLocal;
-		break;
+			EXT_INT1_Ptr = pLocal;
+			break;
 		
 		case EXT_INT2:
-		EXT_INT2_Ptr = pLocal;
-		break;
+			EXT_INT2_Ptr = pLocal;
+			break;
+		
+		default:
+			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			
 	}
+	return extInterruptErr;
 }
 
 ISR(INT0_vect)

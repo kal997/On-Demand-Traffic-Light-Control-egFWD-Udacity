@@ -13,6 +13,8 @@
 #include "../../Utilities/registers.h"
 #include "../../Utilities/standard_types.h"
 
+#define NO_OF_PORTS 4
+#define NO_OF_PINS 8
 
 typedef enum{
 	PIN0,
@@ -42,6 +44,15 @@ typedef enum{
 }EN_DIO_state_t;
 
 
+typedef enum {
+	DIO_OK,
+	DIO_NOT_INITIALIZED,
+	DIO_INVALID_PIN,
+	DIO_INVALID_PORT,
+	DIO_INVALID_PIN_CONFIG,
+	DIO_INVALID_STATE
+}EN_DIO_error_t;
+
 typedef struct {
 	EN_DIO_port_t port;
 	EN_DIO_pin_t pin;
@@ -49,10 +60,10 @@ typedef struct {
 }ST_DIO_config_t;
 
 
-void DIO_init(ST_DIO_config_t*);
-void DIO_write(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t);
-void DIO_read(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t*);
-void DIO_toggle(EN_DIO_port_t, EN_DIO_pin_t);
+EN_DIO_error_t DIO_init(ST_DIO_config_t*);
+EN_DIO_error_t DIO_write(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t);
+EN_DIO_error_t DIO_read(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t*);
+EN_DIO_error_t DIO_toggle(EN_DIO_port_t, EN_DIO_pin_t);
 
 
 

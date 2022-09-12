@@ -35,16 +35,6 @@ typedef enum
 
 }EN_TIMER0_mode_t;
 
-/*
-typedef enum
-{
-	OC0_DISCONNECTED=0,
-	OC0_TOGGLE,
-	OC0_NON_INVERTING,
-	OC0_INVERTING
-
-}TIMER0_EN_OCMode_t;
-*/
 
 typedef struct {
 	EN_TIMER0_mode_t timer0Mode;
@@ -54,16 +44,26 @@ typedef struct {
 
 typedef enum
 {
-	TIMER0_LOW=0,
-	TIMER0_HIGH
+	TIMER0_FLAG_LOW=0,
+	TIMER0_FLAG_HIGH
 
 }EN_TIMER0_flagState_t;
 
+
+typedef enum {
+	TIMER0_OK,
+	TIMER0_INVALID_MODE,
+	TIMER0_INVALID_PRESCALER,
+	TIMER0_IN_USE,
+	TIMER0_OUT_OF_RANGE_TICKS,
+	
+	}EN_TIMER0_error_t;
  
 void TIMER0_stop(void);
-void TIMER0_setTicks(u8 ticks);
-void TIMER0_Init(ST_TIMER0_config_t* timerConfigPtr);
-
+EN_TIMER0_error_t TIMER0_setTicks(u8 ticks);
+EN_TIMER0_error_t TIMER0_Init(ST_TIMER0_config_t* timerConfigPtr);
+EN_TIMER0_error_t TIMER0_deInit(void);
+EN_TIMER0_error_t TIMER0_isFree(void);
 void TIMER0_OV_clearFlag(void);
 EN_TIMER0_flagState_t TIMER0_OV_checkFlag(void);
 
