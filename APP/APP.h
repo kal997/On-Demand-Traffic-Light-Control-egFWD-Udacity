@@ -57,6 +57,23 @@ typedef enum {
 
 
 
+typedef struct {
+	EN_EXT_error_t pedButtonSenseControlErr;
+	EN_EXT_error_t pedButtonCallBackFunctionErr;
+	EN_EXT_error_t pedButtonInterruptEnableErr;
+	
+	EN_LED_error_t pedRedLedErr;
+	EN_LED_error_t pedYellowLedErr;
+	EN_LED_error_t pedGreenLedErr;
+	
+	EN_LED_error_t carRedLedErr;
+	EN_LED_error_t carYellowLedErr;
+	EN_LED_error_t carGreenLedErr;
+	
+}ST_APP_init_error_t;
+
+
+
 
 
 /***********************************************************************************************************************/
