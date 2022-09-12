@@ -16,7 +16,7 @@ typedef enum{
 	EXT_INT0,
 	EXT_INT1,
 	EXT_INT2
-}EXT_EN_InterruptSource_t;
+}EN_EXT_InterruptSource_t;
 
 
 typedef enum{
@@ -24,25 +24,31 @@ typedef enum{
 	FALLING_EDGE,
 	ANY_LOGIC_CHANGE,
 	LOW_LEVEL
-}EXT_EN_SenseControl_t;
+}EN_EXT_SenseControl_t;
 
 
 
 typedef enum{
-	FLAG_LOW,
-	FLAG_HIGH
-	}EXT_EN_flag_t;
+	EXT_INT_FLAG_LOW,
+	EXT_INT_FLAG_HIGH
+	}EN_EXT_flag_t;
+
+
+typedef enum {
+	EXT_INT_OK,
+	EXT_INT_INVALID_SOURCE,
+	EXT_INT_INVALID_SENSE_CONTROL,
+}EN_EXT_error_t;
 
 
 
-void EXT_InterruptEnable(EXT_EN_InterruptSource_t);
-void EXT_InterruptDisable(EXT_EN_InterruptSource_t);
-void EXT_InterruptSenseControl(EXT_EN_InterruptSource_t, EXT_EN_SenseControl_t);
-void EXT_InterruptSetCallback(EXT_EN_InterruptSource_t, void(*)(void));
+EN_EXT_error_t EXT_InterruptEnable(EN_EXT_InterruptSource_t);
+EN_EXT_error_t EXT_InterruptDisable(EN_EXT_InterruptSource_t);
+EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t, EN_EXT_SenseControl_t);
+EN_EXT_error_t EXT_InterruptSetCallback(EN_EXT_InterruptSource_t, void(*)(void));
 
-void EXT_Interrupt_ReadFlag(EXT_EN_InterruptSource_t, EXT_EN_flag_t*); // read flag API
-void EXT_Interrupt_WriteFlag(EXT_EN_InterruptSource_t); // write flag API
-
+EN_EXT_error_t EXT_Interrupt_ReadFlag(EN_EXT_InterruptSource_t, EN_EXT_flag_t*); // read flag API
+EN_EXT_error_t EXT_Interrupt_WriteFlag(EN_EXT_InterruptSource_t); // write flag API
 
 
 
