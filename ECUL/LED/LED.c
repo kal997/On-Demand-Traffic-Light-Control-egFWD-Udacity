@@ -7,7 +7,7 @@
 #include "LED.h"
 EN_LED_error_t LED_init(ST_LED_t* ledPtr)
 {
-	EN_LED_error_t ledInitErr;
+	EN_LED_error_t ledInitErr = LED_OK;
 	
 	ST_DIO_config_t dioPinConfig = {ledPtr->ledPort, ledPtr->ledPin, OUTPUT};
 	EN_DIO_error_t dioInitErr= DIO_init(&dioPinConfig);
@@ -19,9 +19,6 @@ EN_LED_error_t LED_init(ST_LED_t* ledPtr)
 		case DIO_INVALID_PIN:
 			ledInitErr = LED_INVALID_PIN;
 			break;
-		case DIO_OK:
-			ledInitErr = LED_OK;
-			break;
 		default:
 		break;
 	}
@@ -29,7 +26,7 @@ EN_LED_error_t LED_init(ST_LED_t* ledPtr)
 }
 EN_LED_error_t LED_ON(ST_LED_t* ledPtr)
 {	
-	EN_LED_error_t ledOnErr;
+	EN_LED_error_t ledOnErr = LED_OK;
 
 	EN_DIO_error_t dioWriteErr = DIO_write(ledPtr->ledPort, ledPtr->ledPin, HIGH);
 	switch (dioWriteErr)
@@ -43,9 +40,7 @@ EN_LED_error_t LED_ON(ST_LED_t* ledPtr)
 		case DIO_NOT_INITIALIZED:
 			ledOnErr = LED_NOT_INIT;
 			break;
-		case DIO_OK:
-			ledOnErr = LED_OK;
-			break;
+		
 		default:
 		break;
 	}
@@ -54,7 +49,7 @@ EN_LED_error_t LED_ON(ST_LED_t* ledPtr)
 EN_LED_error_t LED_OFF(ST_LED_t* ledPtr)
 {
 	
-	EN_LED_error_t ledOffErr;
+	EN_LED_error_t ledOffErr = LED_OK;
 
 	EN_DIO_error_t dioWriteErr = DIO_write(ledPtr->ledPort, ledPtr->ledPin, LOW);
 	switch (dioWriteErr)
@@ -68,9 +63,6 @@ EN_LED_error_t LED_OFF(ST_LED_t* ledPtr)
 		case DIO_NOT_INITIALIZED:
 		ledOffErr = LED_NOT_INIT;
 		break;
-		case DIO_OK:
-		ledOffErr = LED_OK;
-		break;
 		default:
 		break;
 	}
@@ -78,7 +70,7 @@ EN_LED_error_t LED_OFF(ST_LED_t* ledPtr)
 }
 EN_LED_error_t LED_toggle(ST_LED_t* ledPtr)
 {
-	EN_LED_error_t ledToggleErr;
+	EN_LED_error_t ledToggleErr = LED_OK;
 
 	EN_DIO_error_t dioToggleErr = DIO_toggle(ledPtr->ledPort, ledPtr->ledPin);
 	switch (dioToggleErr)
@@ -91,9 +83,6 @@ EN_LED_error_t LED_toggle(ST_LED_t* ledPtr)
 		break;
 		case DIO_NOT_INITIALIZED:
 		ledToggleErr = LED_NOT_INIT;
-		break;
-		case DIO_OK:
-		ledToggleErr = LED_OK;
 		break;
 		default:
 		break;
