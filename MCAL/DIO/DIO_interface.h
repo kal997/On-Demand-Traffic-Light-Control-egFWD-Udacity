@@ -60,10 +60,10 @@ typedef struct {
 }ST_DIO_config_t;
 
 
-EN_DIO_error_t DIO_init(ST_DIO_config_t*);
-EN_DIO_error_t DIO_write(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t);
-EN_DIO_error_t DIO_read(EN_DIO_port_t, EN_DIO_pin_t, EN_DIO_state_t*);
-EN_DIO_error_t DIO_toggle(EN_DIO_port_t, EN_DIO_pin_t);
+EN_DIO_error_t DIO_init(ST_DIO_config_t* dio_config_ptr);
+EN_DIO_error_t DIO_write(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t state);
+EN_DIO_error_t DIO_read(EN_DIO_port_t port, EN_DIO_pin_t pin, EN_DIO_state_t*pinStatePtr);
+EN_DIO_error_t DIO_toggle(EN_DIO_port_t port, EN_DIO_pin_t pin);
 
 
 

@@ -11,7 +11,6 @@
 
 
 #include "../ECUL/LED/LED.h"
-#include "../MCAL/Timer/Timer.h"
 #include "../MCAL/External_interrupt/External_interrupt.h"
 
 
@@ -80,7 +79,7 @@ typedef struct {
 /**********************************        APPLICATION INTERFACE FUNCTIONS       ***************************************/
 /***********************************************************************************************************************/
 
-void APP_init();
+void APP_init(ST_APP_init_error_t* AppinitErrPtr);
 void APP_start();
 
 

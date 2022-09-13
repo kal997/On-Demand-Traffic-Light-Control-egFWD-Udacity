@@ -1,4 +1,6 @@
 #include "APP.h"
+#include "../MCAL/Timer/Timer.h"
+
 /***********************************************************************************************************************/
 /*********************************             GLOBAL VARIABLES         ************************************************/
 /***********************************************************************************************************************/
@@ -130,6 +132,21 @@ static EN_trafficLightStatus_t trafficLightsNormalMode(void)
 			LED_OFF(&carsRedLedConfig);
 		}
 		else break; // if pressed, return the carsTrafficLightState
+	
+		// checking if button is pressed or not, if not pressed, we will continue with the normal mode
+		if (isPedestrainButtonPressed == PB_NOT_PRESSED)
+		{
+			LED_ON(&carsYellowLedConfig);
+			carsTrafficLightState = YELLOW_LIGHTS_ON;
+			for(int i = 0 ; i<5 && isPedestrainButtonPressed == PB_NOT_PRESSED; i++)
+			{
+				timerDelay_1s();
+				LED_toggle(&carsYellowLedConfig);
+			}
+			LED_OFF(&carsYellowLedConfig);
+		}
+		else break; // if pressed, return the carsTrafficLightState
+		
 		
 	}
 	
@@ -141,7 +158,7 @@ static EN_trafficLightStatus_t trafficLightsNormalMode(void)
 static EN_trafficLightMode_t getPedestrianMode(EN_trafficLightStatus_t interruptedNormalMode)
 {
 	// this variable will hold the pedestrian mode corresponding to the last state of cars traffic lights.
-	EN_trafficLightMode_t currentPedestrianMode;
+	EN_trafficLightMode_t currentPedestrianMode = PEDESTRIAN_MODE_1;
 	switch (interruptedNormalMode)
 	{
 		case RED_LIGHTS_ON:
@@ -277,11 +294,6 @@ void APP_start()
 	}
 	
 }
-
-
-
-
-
 
 
 
