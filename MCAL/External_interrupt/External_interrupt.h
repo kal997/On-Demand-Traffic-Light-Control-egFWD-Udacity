@@ -42,13 +42,13 @@ typedef enum {
 
 
 
-EN_EXT_error_t EXT_InterruptEnable(EN_EXT_InterruptSource_t);
-EN_EXT_error_t EXT_InterruptDisable(EN_EXT_InterruptSource_t);
-EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t, EN_EXT_SenseControl_t);
-EN_EXT_error_t EXT_InterruptSetCallback(EN_EXT_InterruptSource_t, void(*)(void));
+EN_EXT_error_t EXT_InterruptEnable(EN_EXT_InterruptSource_t interrupt_pin);
+EN_EXT_error_t EXT_InterruptDisable(EN_EXT_InterruptSource_t interrupt_pin);
+EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t interrupt_pin, EN_EXT_SenseControl_t sense);
+EN_EXT_error_t EXT_InterruptSetCallback(EN_EXT_InterruptSource_t interrupt_pin, void(*pLocal)(void));
 
-EN_EXT_error_t EXT_Interrupt_ReadFlag(EN_EXT_InterruptSource_t, EN_EXT_flag_t*); // read flag API
-EN_EXT_error_t EXT_Interrupt_WriteFlag(EN_EXT_InterruptSource_t); // write flag API
+EN_EXT_error_t EXT_Interrupt_ReadFlag(EN_EXT_InterruptSource_t interrupt_pin, EN_EXT_flag_t* flagPtr ); // read flag API
+EN_EXT_error_t EXT_Interrupt_WriteFlag(EN_EXT_InterruptSource_t interrupt_pin); // write flag API
 
 
 

@@ -24,10 +24,10 @@ typedef enum {
 }EN_LED_error_t;
 	
 	
-EN_LED_error_t LED_init(ST_LED_t*);
-EN_LED_error_t LED_ON(ST_LED_t*);
-EN_LED_error_t LED_OFF(ST_LED_t*);
-EN_LED_error_t LED_toggle(ST_LED_t*);
+EN_LED_error_t LED_init(ST_LED_t* ledPtr);
+EN_LED_error_t LED_ON(ST_LED_t* ledPtr);
+EN_LED_error_t LED_OFF(ST_LED_t* ledPtr);
+EN_LED_error_t LED_toggle(ST_LED_t* ledPtr);
 
 
 

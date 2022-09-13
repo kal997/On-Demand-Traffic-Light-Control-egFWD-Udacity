@@ -23,13 +23,11 @@ static DIO_init_flag_t dioInitArr[NO_OF_PORTS][NO_OF_PINS] = {
 	
 EN_DIO_error_t DIO_init(ST_DIO_config_t* dio_config_ptr)
 {
+	EN_DIO_error_t dioInitErr = DIO_OK;
+
 	if (dio_config_ptr->pin < 0 || dio_config_ptr->pin > PIN7) return DIO_INVALID_PIN;
 	
-	
-	
-	
-	EN_DIO_error_t dioInitErr = DIO_OK;
-	
+		
 	switch(dio_config_ptr->pin_config)
 	{
 		case OUTPUT:

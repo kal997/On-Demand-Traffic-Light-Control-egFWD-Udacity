@@ -29,7 +29,6 @@ EN_EXT_error_t EXT_InterruptEnable(EN_EXT_InterruptSource_t interrupt_pin)
 		case EXT_INT2:
 			SET_BIT(GICR, INT2);
 			break;
-		
 		default:
 			extInterruptErr = EXT_INT_INVALID_SOURCE;
 			break;
@@ -62,6 +61,7 @@ EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t interrupt_pin,
 				case LOW_LEVEL:
 					CLR_BIT(MCUCR, ISC00);
 					CLR_BIT(MCUCR, ISC01);
+					break;
 				default:
 					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
 					break;
@@ -90,10 +90,9 @@ EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t interrupt_pin,
 				CLR_BIT(MCUCR, ISC10);
 				CLR_BIT(MCUCR, ISC11);
 				break;
-					CLR_BIT(MCUCR, ISC01);
-				default:
-					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
-					break;
+			default:
+				extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
+				break;
 				
 			}
 			break;
@@ -104,12 +103,9 @@ EN_EXT_error_t EXT_InterruptSenseControl(EN_EXT_InterruptSource_t interrupt_pin,
 				case RISING_EDGE:
 					SET_BIT(MCUCSR, ISC2);
 					break;
-				
 				case FALLING_EDGE:
 					CLR_BIT(MCUCSR, ISC2);
 					break;
-				
-					CLR_BIT(MCUCR, ISC01);
 				default:
 					extInterruptErr = EXT_INT_INVALID_SENSE_CONTROL;
 					break;
@@ -139,6 +135,7 @@ EN_EXT_error_t EXT_InterruptDisable(EN_EXT_InterruptSource_t interrupt_pin)
 			break;
 		default:
 			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			break;
 			
 	}
 	return extInterruptErr;
@@ -162,6 +159,7 @@ EN_EXT_error_t EXT_Interrupt_ReadFlag(EN_EXT_InterruptSource_t interrupt_pin, EN
 			break;
 		default:
 			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			break;
 	}
 	return extInterruptErr;
 }
@@ -209,6 +207,7 @@ EN_EXT_error_t EXT_InterruptSetCallback(EN_EXT_InterruptSource_t interrupt_pin, 
 		
 		default:
 			extInterruptErr = EXT_INT_INVALID_SOURCE;
+			break;
 			
 	}
 	return extInterruptErr;
